@@ -1,34 +1,46 @@
 import React from 'react';
-import { FaLinkedin, FaGithub, FaGlobe } from 'react-icons/fa';
+import { FaLinkedin, FaGithub, FaUserCircle } from 'react-icons/fa';
 
 const NavBar: React.FC = () => {
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
-      <div className="container mx-auto flex justify-between items-center py-4 px-8">
+    <nav className="fixed left-1/2 -translate-x-1/2 top-2 w-10/12 max-w-2xl bg-white shadow-md z-50 rounded-full">
+      <div className="container mx-auto flex justify-center items-center space-x-4 py-4 px-8">
 
         {/* Navigation Section */}
-        <div className="space-x-4">
-          <a href="#landing" className="text-black text-sm hover:underline">Home</a>
-          <a href="#experience" className="text-black text-sm hover:underline">Experience</a>
-          <a href="#skills" className="text-black text-sm hover:underline">Skills</a>
-          <a href="#projects" className="text-black text-sm hover:underline">Projects</a>
-          <a href="#contact" className="text-black text-sm hover:underline">Contact</a>
+        <div className="relative group">
+          <p className="cursor-pointer text-lg">Navigation</p>
+          <ul className="absolute left-0 py-2 hidden bg-white shadow-lg group-hover:block border border-black-50 rounded">
+            <li><a href="#landing" className="text-black text-sm hover:opacity-50 block px-4 py-2">Home</a></li>
+            <li><a href="#experience" className="text-black text-sm hover:opacity-50 block px-4 py-2">Experience</a></li>
+            <li><a href="#skills" className="text-black text-sm hover:opacity-50 block px-4 py-2">Skills</a></li>
+            <li><a href="#projects" className="text-black text-sm hover:opacity-50 block px-4 py-2">Projects</a></li>
+            <li><a href="#contact" className="text-black text-sm hover:opacity-50 block px-4 py-2">Contact</a></li>
+          </ul>
         </div>
 
         {/* Social Section */}
-        <div className="space-x-4 flex items-center">
-          <a href="https://linkedin.com/in/simon-studen" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <FaLinkedin size={24} className="text-black" />
-            <button className="text-black text-sm hover:underline">Linkedin</button>
-          </a>
-          <a href="https://github.com/sstuden2255" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-            <FaGithub size={24} className="text-black" />
-            <button className="text-black text-sm hover:underline">Github</button>
-          </a>
-          <a href="https://www.sstuden.me" target="_blank" rel="noopener noreferrer" aria-label="Old Portfolio">
-            <FaGlobe size={24} className="text-black" />
-            <button className="text-black text-sm hover:underline">Old Portfolio</button>
-          </a>
+        <div className="relative group">
+          <p className="cursor-pointer text-lg">Social</p>
+          <ul className="absolute left-0 py-2 hidden bg-white shadow-lg group-hover:block border border-black-50 rounded">
+            <li>
+              <a href="https://linkedin.com/in/simon-studen" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="flex px-4 py-2 hover:opacity-50">
+                <FaLinkedin size={18} className="text-black mr-1" />
+                <button className="text-black text-sm">Linkedin</button>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/sstuden2255" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="flex px-4 py-2 hover:opacity-50">
+                <FaGithub size={18} className="text-black mr-1" />
+                <button className="text-black text-sm">Github</button>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.sstuden.me" target="_blank" rel="noopener noreferrer" aria-label="Old Portfolio" className="flex px-4 py-2 hover:opacity-50">
+                <FaUserCircle size={18} className="text-black mr-1" />
+                <button className="text-black text-sm whitespace-nowrap">Old Portfolio</button>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>

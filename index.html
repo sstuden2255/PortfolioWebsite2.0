@@ -2,13 +2,42 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>portfolio-website</title>
+
+    <!-- SEO -->
+    <title>Simon Studen — Full-Stack Software Engineer</title>
+    <meta
+      name="description"
+      content="Simon Studen is a full-stack software engineer in Seattle, WA building web, mobile, and iOS applications with React, React Native, Swift, and Node.js."
+    />
+    <meta name="author" content="Simon Studen" />
+    <meta name="theme-color" content="#0a0c10" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Simon Studen — Full-Stack Software Engineer" />
+    <meta
+      property="og:description"
+      content="Full-stack software engineer in Seattle, WA building web, mobile, and iOS applications."
+    />
+    <meta property="og:site_name" content="Simon Studen" />
+    <!-- TODO: set og:url and og:image once the site is deployed -->
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!--
+      Fonts: DM Mono for display / code-feel type, Outfit for body copy.
+      preconnect lets the browser open the font connections early.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

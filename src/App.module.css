@@ -1,0 +1,54 @@
+/* App shell: main column + footer. Sections handle their own spacing. */
+
+.main {
+  width: min(var(--container), 100% - var(--space-6) * 2);
+  margin-inline: auto;
+}
+
+/* Visually hidden until focused — standard skip-link pattern */
+.skipLink {
+  position: fixed;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 100;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+  transform: translateY(calc(-100% - var(--space-4)));
+  transition: transform var(--transition);
+}
+
+.skipLink:focus-visible {
+  transform: translateY(0);
+}
+
+.footer {
+  margin-top: var(--space-9);
+  padding: var(--space-6);
+  text-align: center;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-raised);
+}
+
+.footerNote {
+  font-size: 0.95rem;
+}
+
+.footerLink {
+  color: var(--color-accent);
+  transition: opacity var(--transition);
+}
+
+.footerLink:hover {
+  opacity: 0.8;
+}
+
+.footerMeta {
+  margin-top: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}

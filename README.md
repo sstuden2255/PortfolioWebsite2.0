@@ -1,16 +1,26 @@
-# React + Vite
+# Simon Studen — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio site. React + Vite + TypeScript, styled with CSS Modules (no UI kits, no Tailwind).
 
-Currently, two official plugins are available:
+## Develop
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # production build to dist/
+npm run lint
+```
 
-## React Compiler
+## Where things live
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- `src/data/content.ts` — **all** site copy (jobs, projects, skills, links), typed against `src/types/index.ts`. Edit content here, not in components.
+- `src/globals.css` — design tokens (colors, fonts, spacing) + reset. Components consume the CSS variables.
+- `src/components/*` — one folder per section (`Nav`, `Hero`, `Experience`, `Projects`, `Skills`), each with a `.tsx` + `.module.css`.
+- `public/resume.pdf` — placeholder; replace with the real resume.
 
-## Expanding the ESLint configuration
+## TODO before launch
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- [ ] Real GitHub / LinkedIn URLs in `src/data/content.ts` (`socials`)
+- [ ] Real project entries + links in `src/data/content.ts` (`projects`)
+- [ ] Replace `public/resume.pdf`
+- [ ] Set `og:url` / `og:image` in `index.html` after deploy

@@ -1,0 +1,115 @@
+.section {
+  padding-top: var(--space-9);
+}
+
+/* Same heading pattern as the other sections */
+.heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin-bottom: var(--space-7);
+}
+
+.heading::after {
+  content: '';
+  flex: 1;
+  max-width: 18rem;
+  height: 1px;
+  background: linear-gradient(to right, var(--color-border-bright), transparent);
+}
+
+.headingIndex {
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+  font-weight: 400;
+  color: var(--color-accent);
+}
+
+/* ---- Grid: auto-fit keeps it responsive with no breakpoint math ---- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr));
+  gap: var(--space-5);
+}
+
+/* ---- Card ---- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition:
+    border-color var(--transition),
+    background-color var(--transition),
+    box-shadow var(--transition),
+    transform var(--transition);
+}
+
+.card:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-accent-dim);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), 0 0 20px var(--color-accent-glow);
+  transform: translateY(-4px);
+}
+
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.title {
+  font-size: 1.2rem;
+  transition: color var(--transition);
+}
+
+.card:hover .title {
+  color: var(--color-accent);
+}
+
+.links {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.iconLink {
+  color: var(--color-text-muted);
+  padding: var(--space-1);
+  transition: color var(--transition), transform var(--transition);
+}
+
+.iconLink:hover {
+  color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+.description {
+  font-size: 0.95rem;
+  flex-grow: 1; /* pushes the stack tags to the card bottom */
+}
+
+/* ---- Stack tags ---- */
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-accent);
+  background: var(--color-accent-tint);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+}

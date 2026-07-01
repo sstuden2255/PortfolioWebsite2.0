@@ -1,0 +1,143 @@
+/* ============================================================
+   globals.css — design tokens + reset
+   Every component .module.css pulls from these variables.
+   ============================================================ */
+
+:root {
+  /* ---- Color: deep near-black base with a cool blue cast ---- */
+  --color-bg: #0a0c10;            /* page background */
+  --color-bg-raised: #0f1218;     /* nav, subtle section tint */
+  --color-surface: #12161e;       /* cards */
+  --color-surface-hover: #161b25; /* card hover state */
+  --color-border: #232936;        /* hairline borders */
+  --color-border-bright: #303949; /* borders on hover/focus */
+
+  --color-text: #e8ecf4;          /* headings / primary text */
+  --color-text-body: #b6bfd0;     /* paragraphs */
+  --color-text-muted: #8791a5;    /* secondary labels, dates */
+
+  /* ---- Accent: terminal mint. One accent, used sparingly. ---- */
+  --color-accent: #5ef2b8;
+  --color-accent-dim: #3dbf8d;                 /* accent on large surfaces */
+  --color-accent-glow: rgba(94, 242, 184, 0.14); /* box-shadow glows */
+  --color-accent-tint: rgba(94, 242, 184, 0.08); /* pill/tag backgrounds */
+
+  /* ---- Type ---- */
+  --font-mono: 'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-body: 'Outfit', system-ui, -apple-system, sans-serif;
+
+  /* ---- Spacing scale (4px base) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 7rem;
+
+  /* ---- Misc ---- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --container: 68rem;            /* max content width */
+  --nav-height: 4rem;
+  --transition: 180ms ease;
+
+  color-scheme: dark;
+}
+
+/* ============ Reset ============ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Keep anchored sections clear of the fixed nav when scrolled to */
+  scroll-padding-top: calc(var(--nav-height) + 1rem);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-body);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--color-text);
+  font-weight: 600;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* Visible focus for keyboard users, hidden for mouse clicks */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* ============ Motion preferences ============
+   Kill smooth scroll and all animation for users who ask for it.
+   Component keyframe animations also check this individually,
+   but this is the global safety net. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,160 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: var(--nav-height);
+}
+
+/* Soft accent glow behind the headline — pure decoration */
+.glow {
+  position: absolute;
+  top: 20%;
+  left: -10%;
+  width: 34rem;
+  height: 34rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--color-accent-glow), transparent 65%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+/* ---- Staggered entrance ----
+   Every direct text block fades up; delay scales with --stagger. */
+.kicker,
+.name,
+.title,
+.tagline,
+.meta,
+.actions {
+  animation: rise 550ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(120ms + var(--stagger) * 110ms);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kicker,
+  .name,
+  .title,
+  .tagline,
+  .meta,
+  .actions {
+    animation: none;
+  }
+}
+
+/* ---- Type ---- */
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  margin-bottom: var(--space-3);
+}
+
+.kickerComment {
+  color: var(--color-accent);
+}
+
+.name {
+  font-size: clamp(2.6rem, 8vw, 4.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.title {
+  font-family: var(--font-mono);
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+}
+
+.tagline {
+  max-width: 38rem;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  margin-top: var(--space-5);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.meta svg {
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.metaDivider {
+  color: var(--color-border-bright);
+}
+
+/* ---- Buttons ---- */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.65rem 1.15rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--color-text);
+  border: 1px solid var(--color-border-bright);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition),
+    transform var(--transition),
+    background-color var(--transition);
+}
+
+.button:hover {
+  border-color: var(--color-accent-dim);
+  box-shadow: 0 0 18px var(--color-accent-glow);
+  transform: translateY(-2px);
+}
+
+/* Resume button carries the accent so it reads as the primary action */
+.buttonPrimary {
+  background: var(--color-accent-tint);
+  border-color: var(--color-accent-dim);
+  color: var(--color-accent);
+}
+
+.buttonPrimary:hover {
+  box-shadow: 0 0 24px var(--color-accent-glow);
+}
+
+@media (max-width: 560px) {
+  .actions {
+    gap: var(--space-2);
+  }
+
+  .button {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+}

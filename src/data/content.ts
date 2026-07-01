@@ -26,9 +26,9 @@ export const education =
 /* ============ Links ============ */
 
 export const socials: SocialLinks = {
-  github: '#', // TODO: https://github.com/...
-  linkedin: '#', // TODO: https://www.linkedin.com/in/...
-  resume: '/resume.pdf',
+  github: 'https://github.com/sstuden2255',
+  linkedin: 'https://www.linkedin.com/in/simon-studen',
+  resume: '/resume.pdf', // TODO: this is just a placeholder resume right now
 };
 
 export const navLinks: NavLink[] = [

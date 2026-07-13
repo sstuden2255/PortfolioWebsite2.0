@@ -7,6 +7,39 @@
   padding-top: var(--nav-height);
 }
 
+/* ---- Two-column layout: text + portrait ----
+   Single column on mobile (portrait drops below the text via DOM order);
+   side-by-side from 768px up. minmax(0, …) keeps long text from blowing
+   the columns open. */
+.heroInner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-7);
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .heroInner {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  /* Text + portrait can exceed one viewport on phones; give the
+     stacked layout breathing room instead of cramming. */
+  .hero {
+    padding-block: calc(var(--nav-height) + var(--space-6)) var(--space-8);
+  }
+}
+
+.heroText {
+  min-width: 0;
+}
+
+.heroPortrait {
+  min-width: 0;
+}
+
 /* Soft accent glow behind the headline — pure decoration */
 .glow {
   position: absolute;

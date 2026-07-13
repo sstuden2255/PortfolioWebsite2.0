@@ -1,0 +1,87 @@
+/* Portrait — layout box, mode crossfade stage, and the temporary switcher. */
+
+.portrait {
+  position: relative;
+  width: 100%;
+  max-width: 26rem;
+  /* Reserve the box before any canvas initializes: zero layout shift.
+     The canvases letterbox the photo inside whatever box this yields. */
+  aspect-ratio: 4 / 5;
+  margin-left: auto;
+  /* Gentle entrance after the hero text stagger (~500ms in). The particle
+     mode's own 600ms settle starts just after this fade begins. Reduced
+     motion: the global animation override makes this instant. */
+  animation: portraitIn 350ms var(--ease-out) 500ms both;
+}
+
+@keyframes portraitIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Crossfade stage — Portrait.tsx toggles .stageFading around a mode swap.
+   Only one mode is ever mounted, so this is fade-out → swap → fade-in. */
+.stage {
+  position: absolute;
+  inset: 0;
+  opacity: 1;
+  transition: opacity 150ms ease;
+}
+
+.stageFading {
+  opacity: 0;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* Vertical pan still scrolls the page on touch; taps reach the canvas. */
+  touch-action: pan-y;
+}
+
+/* ---- Temporary A/B switcher: quiet terminal tabs ---- */
+
+.switcher {
+  position: absolute;
+  right: var(--space-2);
+  bottom: 0;
+  display: flex;
+  gap: var(--space-4);
+  z-index: 1;
+}
+
+.switchButton {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  padding: var(--space-1) 0;
+  border-bottom: 1px solid transparent;
+  transition:
+    color var(--transition),
+    border-color var(--transition);
+}
+
+.switchButton:hover {
+  color: var(--color-text);
+}
+
+.switchActive {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+/* Below the two-column breakpoint the portrait sits under the hero text,
+   centered and scaled to ~70%, still touch-interactive. */
+@media (max-width: 767px) {
+  .portrait {
+    margin-inline: auto;
+    max-width: min(70%, 18rem);
+  }
+}

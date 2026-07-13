@@ -4,6 +4,25 @@ Chronological log of features and notable changes to the portfolio site. Newest 
 
 ---
 
+## 2026-07-13 — Interactive hero portrait: dual mode (particles + ASCII matrix rain)
+
+Canvas portrait in the hero's right column, rendered from `src/assets/portrait.jpeg`, with two competing modes behind a temporary A/B switcher ("dots" / "glyphs", persisted to `localStorage['portrait-mode']`). All under `src/components/Hero/Portrait/`; no new dependencies.
+
+- **Shared sampler (`useImageSampler.ts`):** decodes the photo once (module-level memo), scales to `SAMPLE_TARGET_WIDTH` (1280px), samples a brightness grid (threshold 0.18, Rec. 709 luma) into normalized coordinates so both modes re-fit on resize without re-decoding. Auto-raises the grid step to respect per-mode particle/glyph caps. Procedural gradient fallback if the photo is missing.
+- **Shared physics (`portraitPhysics.ts`):** spring step, inverse-square repulsion, radial impulse, CSS-var color reading, reduced-motion/fine-pointer queries.
+- **Option A — particles (`ParticlePortrait.tsx`):** one accent dot per bright cell (radius + opacity from brightness), spring-home physics, cursor repulsion, tap shockwave on touch, hover reveals true photo colors, scattered load-in that settles center-out after the hero text stagger.
+- **Option B — ASCII (`AsciiPortrait.tsx`):** mono glyphs (`fillText`, DM Mono via `--font-mono`) on the same grid, ramp `.:;<>{}#@`. Reworked from the original cursor-scramble to **matrix rain**: per-column falling heads flash glyphs near-white, churn them through random ramp chars, then settle (`TRAIL_MS` cooldown, `CHURN_CUTOFF`). The intro rains the whole portrait in column-by-column (staggered over `INTRO_STAGGER`, measured from the first rendered frame); cursor movement seeds drops in nearby columns (per-column cooldown), taps rain a wider burst. Hover-hold (500ms) still ghosts the photo colors through.
+- **Performance:** one rAF loop max (only the active mode mounts; mode swap is fade-out → swap → fade-in), loop fully stops off-viewport (IntersectionObserver) and on hidden tabs, DPR capped at 2, resize re-derives from memoized samples.
+- **Accessibility:** canvas `role="img"` with label from `content.ts`; reduced motion renders the fully settled portrait statically and no-ops all interaction; switcher is real buttons with `aria-pressed`.
+- **Layout:** hero is now a two-column grid ≥768px (text | portrait), portrait drops below at ~70% width on mobile; `aspect-ratio: 4/5` reserves the box (zero layout shift).
+- **Verified:** `tsc -b` clean, `oxlint` clean, `vite build` succeeds.
+
+### Follow-ups
+- [ ] Pick a winning mode and delete the loser (procedure documented at the bottom of `Portrait.tsx`)
+- [ ] Tune by eye: particles (`GRID_STEP`, `REPULSE_*`, `SPRING`/`FRICTION`), ASCII (`RAIN_SPEED`, `TRAIL_MS`, `CASCADE_RADIUS`, `RAMP`)
+
+---
+
 ## 2026-07-10 — "The Line" v2: one continuous rail, fully scrubbed
 
 Reworked the scroll narrative after feedback that v1 wasn't involved enough: the line is now a single continuous rail from the hero to a terminal cap after Skills, and every section physically hangs off it. All activation is **reversible** — scroll back up and the UI powers back down, so the page scrubs like a mechanism driven by the scroll position.

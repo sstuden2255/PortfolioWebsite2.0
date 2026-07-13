@@ -2,8 +2,9 @@
  * content.ts — single source of truth for all site copy.
  * Components import from here and render; nothing is hardcoded in JSX.
  *
- * TODO(Simon): replace the "#" placeholder URLs and the invented
- * project entries with real ones. Resume lives at public/resume.pdf.
+ * TODO(Simon): add real app screenshots to the projects (drop images in
+ * public/screenshots/ and set `screenshot: { src, alt }` — the phone
+ * frame shows a placeholder until then). Resume lives at public/resume.pdf.
  */
 
 import type { Job, NavLink, Project, SkillGroup, SocialLinks } from '../types';
@@ -18,7 +19,7 @@ export const location = 'Seattle, WA';
 
 /** Short punchy hero one-liner. */
 export const tagline =
-  'I build web and mobile apps people actually use — from trivia played by millions to iOS tools that make technology more accessible.';
+  'I build web and mobile apps people actually use — from trivia played by millions to tools that make technology more accessible.';
 
 export const education =
   'B.S. Computer Science — Paul G. Allen School, University of Washington (2023)';
@@ -43,56 +44,67 @@ export const jobs: Job[] = [
   {
     company: 'Sporcle',
     role: 'Web & Mobile App Developer',
-    dates: '2023 — Present',
+    dates: 'Sep 2023 — Present',
     location: 'Seattle, WA',
-    bullets: [
-      'Ship features across a trivia platform serving millions of monthly quiz plays, working the full stack: React on the web, React Native on mobile, and PHP/SQL services behind them.',
-      'Build and maintain shared TypeScript components used by both the web app and the React Native apps, cutting duplicated UI work across platforms.',
-      'Improve quiz gameplay performance and reliability by profiling render bottlenecks and tightening SQL queries on high-traffic endpoints.',
-      'Collaborate with design and content teams to launch new game modes end-to-end — from data model and API to polished, responsive UI.',
-    ],
+    summary:
+      'Collaborating closely with product managers and designers, I bring features to life on Sporcle trivia platforms that touch millions of users. I work across the full stack, owning projects end-to-end. This includes everything from our backend and data models to our web and mobile clients. Some of my notable projects include full redesigns of our Acrostic puzzle game and quiz category page UI, monetization and localization improvements to our Sporcle Party app, and revitalizing our flagship Sporcle app on Android. I also do maintenance work that keeps products this size healthy: refactoring legacy code, fixing bugs, and improving performance.',
   },
   {
     company: 'Able Opportunities',
-    role: 'iOS Contract Developer',
-    dates: '2023 — Present',
+    role: 'Mobile Software Engineer',
+    dates: 'Oct 2025 — Present',
     location: 'Seattle, WA · Contract',
-    bullets: [
-      'Design and build native iOS apps in Swift that support people with disabilities in daily work and communication.',
-      'Implement accessibility-first interfaces — VoiceOver support, Dynamic Type, high-contrast modes, and simplified navigation — validated with real users.',
-      'Own the full delivery cycle: requirements with stakeholders, architecture, implementation, TestFlight betas, and App Store releases.',
-      'Translate feedback from caregivers and job coaches into concrete UX improvements that make features usable without assistance.',
-    ],
+    summary:
+      "As a contractor for Able Opportunities, I build and maintain mobile apps for individuals with intellectual and developmental disabilities. Accessibility is at the forefront of the work I do, designing apps around Web Content Accessibility Guidelines (WCAG) and other unique accessibility standards catered to our users. My most recent project has been building Shop Autonomy, a cross-platform budget planning tool for shopping trips. Here, I own the entire app development process; planning the app architecture and data layer, building out the UI and functionality, and maintaining a smooth deployment and release pipeline. To do this efficiently, I've put together an agentic development workflow, which I continue to evolve and refine. Before starting the cross-platform work, I also spent time refactoring and stabilizing a legacy iOS codebase for the existing Work Autonomy app.",
+  },
+  {
+    company: 'Akkompany',
+    role: 'Software Engineer Intern',
+    dates: 'Jun 2022 — Sep 2022',
+    summary:
+      "As a summer intern at an AI startup, this was my first professional software experience and my introduction to agile development and the software development lifecycle. Working closely with the founders, I was tasked with building out an automated testing and continuous integration setup for their desktop application. I also wrote a Node.js package to profile the application's CPU and memory usage on long-running scripts.",
+  },
+  {
+    company: 'Juni Learning',
+    role: 'Computer Science Instructor',
+    dates: 'Dec 2021 — Oct 2022',
+    location: 'Remote',
+    summary:
+      'I taught computer science one-on-one, working with up to six high school students on a data structures and algorithms curriculum in various programming languages. Most of the job involved reviewing their code, giving feedback, and asking questions that guided them to the answer instead of just handing it over.',
   },
 ];
 
-/* ============ Projects ============
-   Three realistic placeholders matching my stack (RN, full-stack web,
-   native iOS). Swap in real projects + URLs when ready. */
+/* ============ Projects ============ */
 
 export const projects: Project[] = [
   {
-    title: 'Trailhead',
-    description:
-      'A React Native hiking companion for the Pacific Northwest. Browse trails offline, log hikes with GPS tracks and photos, and keep a personal stats dashboard — elevation climbed, miles, streaks.',
-    stack: ['React Native', 'TypeScript', 'Expo', 'SQLite'],
-    liveUrl: '#', // TODO: App Store / demo link
-    githubUrl: '#', // TODO
+    title: 'Shop Autonomy',
+    platform: 'iOS & Android',
+    description: [
+      'Shop Autonomy is a cross-platform budget tracker catered towards users with intellectual and developmental disabilities. As a solo developer, I’m building the app primarily through an agentic coding workflow. I treat Claude Code as a collaborator governed by a strict, self-authored rulebook. This rulebook encodes the tech stack as well as guardrails to keep the AI agents productive without letting them make unilateral product decisions. Rather than accepting first drafts, I work iteratively through design specs, written implementation plans, and dated development-journal entries for every session. This deliberate loop of experimenting, verifying against real user needs, documenting the reasoning, and correcting course keeps the codebase clean and consistent, and ensures I understand every decision and change.',
+      'For Shop Autonomy, accessibility is an engineering requirement, not an afterthought. Since the app serves users who may have limited reading ability, low vision, or motor difficulties, I use a design-token system that enforces WCAG and other unique accessibility standards at the code level, such as screen-reader support on every interactive element or blocking text/background color combinations that fall below accessible contrast ratios. For a population that depends on predictable, legible, high-contrast interfaces, these choices are the difference between an app that empowers autonomy and one that’s unusable.',
+    ],
+    tags: ['React Native', 'TypeScript'],
+    comingSoon: true,
   },
   {
-    title: 'Setlist',
-    description:
-      'A full-stack web app for concert lovers: track shows you\'ve attended, build a live-music history, and get notified when artists you follow announce nearby dates. REST API with auth, caching, and a job queue for notifications.',
-    stack: ['React', 'Node.js', 'Express', 'PostgreSQL'],
-    liveUrl: '#', // TODO
-    githubUrl: '#', // TODO
+    title: 'Sporcle App',
+    platform: 'Android',
+    description: [
+      "I serve as the primary Android engineer on Sporcle's official Android app, a native Kotlin/Jetpack Compose shell wrapping the Sporcle web experience. I have driven multiple sustained modernizations of the codebase: migrating the UI from Material 2 to Material 3, converting the build system from Groovy to the Kotlin DSL with a centralized version catalog, and continually upgrading the Android Gradle Plugin, Kotlin, and target SDK (through API 36) alongside dozens of dependency updates. I led several significant platform migrations end-to-end, replacing the deprecated Accompanist WebView with a raw Android WebKit WebView integration, moving authentication from the legacy Google Sign-In SDK to the modern Credential Manager API, and upgrading Google Play Billing to the latest version, each backed by written design specs and implementation plans. Beyond feature work, I focus heavily on app stability and performance: resolving memory leaks, lifecycle bugs, and purchase-flow race conditions; hardening network and notification handling; implementing full edge-to-edge display support; and standing up a Macrobenchmark module to profile app performance.",
+    ],
+    tags: ['Kotlin', 'Jetpack Compose'],
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.sporcle.geneva',
   },
   {
-    title: 'Pocket Pantry',
-    description:
-      'A native iOS app that tracks what\'s in your kitchen and what\'s about to expire. Scan barcodes to add items, get smart reminders, and generate grocery lists — built with SwiftUI and fully VoiceOver accessible.',
-    stack: ['Swift', 'SwiftUI', 'Core Data', 'AVFoundation'],
-    githubUrl: '#', // TODO
+    title: 'Sporcle Party',
+    platform: 'iOS & Android',
+    description: [
+      'As part of a small engineering team, I helped build and evolve Sporcle Party, a real-time multiplayer trivia app, working across the full front-end stack while contributing heavily to product and design decisions during rapid sprint cycles. My most significant work came during a push to better monetize the app following a large surge of new users in the Middle East: I designed and shipped a system for purchasable avatar hats as a new revenue stream, spanning the asset pipeline and in-app store. I also led a full app localization effort to make the product feel native to our growing international audience. Beyond monetization, I redesigned core surfaces of the app, including the home screen and bottom-tab navigation, the profile and settings pages, and the in-game lobby and gameplay screens. Throughout, I owned release management and continuously resolved cross-platform UI and stability bugs to keep the experience polished across both iOS and Android.',
+    ],
+    tags: ['React Native', 'JavaScript', 'PHP', 'SQL'],
+    appStoreUrl: 'https://apps.apple.com/us/app/sporcle-party-social-trivia/id1484143447',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.sporcle.party',
   },
 ];
 
@@ -100,19 +112,53 @@ export const projects: Project[] = [
 
 export const skillGroups: SkillGroup[] = [
   {
-    category: 'Languages',
-    skills: ['TypeScript', 'JavaScript', 'Swift', 'Kotlin', 'PHP', 'SQL'],
+    category: 'Programming Languages',
+    skills: [
+      'JavaScript',
+      'TypeScript',
+      'Python',
+      'Swift',
+      'Kotlin',
+      'Java',
+      'PHP',
+      'SQL',
+      'HTML/CSS',
+    ],
   },
   {
-    category: 'Frontend',
-    skills: ['React', 'HTML', 'CSS', 'Vite', 'Responsive Design', 'Accessibility'],
+    category: 'AI Engineering',
+    skills: [
+      'Agentic Development',
+      'AI Workflow Design',
+      'Context Engineering'
+    ],
   },
   {
-    category: 'Mobile',
-    skills: ['React Native', 'SwiftUI', 'UIKit', 'Expo', 'App Store / TestFlight'],
+    category: 'Backend & Systems',
+    skills: ['REST API Design', 'Node.js', 'SQL Data Models', 'Caching'],
   },
   {
-    category: 'Backend & Data',
-    skills: ['Node.js', 'Express', 'PHP', 'MySQL', 'PostgreSQL', 'REST APIs'],
+    category: 'Mobile & Frontend',
+    skills: [
+      'iOS',
+      'Android',
+      'React / React Native / Expo',
+      'Design Systems',
+      'Accessibility-First Design',
+      'End-to-End Mobile Delivery',
+      'Mobile/Web Architecture',
+    ],
+  },
+  {
+    category: 'Tools & Engineering Practices',
+    skills: [
+      'Git',
+      'Bash',
+      'CI/CD',
+      'Test-Driven Development',
+      'Automated Testing',
+      'Performance Optimization',
+      'Logging/Error Handling',
+    ],
   },
 ];

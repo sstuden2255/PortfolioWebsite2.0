@@ -1,9 +1,15 @@
+/* Skills hang off The Line as labeled rows: each category gets a
+   junction dot on the rail and a connector branch into its label.
+   Rail geometry: the rail spans x = 5..6px inside the rail zone, so
+   rail-relative positions are calcs against --rail-gutter. */
+
 .section {
   padding-top: var(--space-9);
 }
 
 /* Same heading pattern as the other sections */
 .heading {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -19,6 +25,21 @@
   background: linear-gradient(to right, var(--color-border-bright), transparent);
 }
 
+/* Section node on the rail */
+.heading::before {
+  content: '';
+  position: absolute;
+  left: calc(-1px - var(--rail-gutter));
+  top: 50%;
+  translate: 0 -50%;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1px solid var(--color-accent-dim);
+  background: var(--color-accent-tint);
+  box-shadow: 0 0 12px var(--color-accent-glow), 0 0 0 3px var(--color-bg);
+}
+
 .headingIndex {
   font-family: var(--font-mono);
   font-size: 0.7em;
@@ -26,31 +47,51 @@
   color: var(--color-accent);
 }
 
-/* ---- Category groups: 2-up on desktop, stacked on mobile ---- */
+/* ---- Category rows branching off the rail ---- */
 
-.grid {
+.rows {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
-  gap: var(--space-5);
+  gap: var(--space-6);
 }
 
-.group {
-  padding: var(--space-5);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  transition: border-color var(--transition);
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+  gap: var(--space-4);
+  align-items: start;
 }
 
-.group:hover {
-  border-color: var(--color-border-bright);
+/* Junction dot on the rail, aligned with the category label */
+.row::before {
+  content: '';
+  position: absolute;
+  left: calc(2px - var(--rail-gutter));
+  top: calc(0.8em - 3px);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px var(--color-accent-glow), 0 0 0 3px var(--color-bg);
+}
+
+/* Connector branch: rail → category label */
+.row::after {
+  content: '';
+  position: absolute;
+  left: calc(6px - var(--rail-gutter));
+  top: 0.8em;
+  width: calc(var(--rail-gutter) - 6px);
+  height: 1px;
+  background: linear-gradient(to right, var(--color-accent-dim), var(--color-accent));
+  transform-origin: left;
 }
 
 .category {
   font-family: var(--font-mono);
   font-size: 0.95rem;
   font-weight: 500;
-  margin-bottom: var(--space-4);
+  line-height: 1.7; /* keep the label's first line level with the pills */
 }
 
 .categoryMarker {
@@ -83,4 +124,77 @@
   color: var(--color-accent);
   border-color: var(--color-accent-dim);
   background: var(--color-accent-tint);
+}
+
+/* ---- Power on/off (reversible — scrubs with the line) ----
+   Base styles above are the lit look, so reduced-motion users get
+   everything visible. Unlit states live ONLY behind no-preference. */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Junction dot: dim until the line arrives */
+  .row::before {
+    background: var(--color-border-bright);
+    box-shadow: 0 0 0 3px var(--color-bg);
+    transition:
+      background-color 0.4s var(--ease-out),
+      box-shadow 0.4s var(--ease-out);
+  }
+
+  .rowLit::before {
+    background: var(--color-accent);
+    box-shadow: 0 0 8px var(--color-accent-glow), 0 0 0 3px var(--color-bg);
+  }
+
+  /* Connector draws out of the rail */
+  .row::after {
+    transform: scaleX(0);
+    transition: transform 0.45s var(--ease-out) 0.05s;
+  }
+
+  .rowLit::after {
+    transform: scaleX(1);
+  }
+
+  /* Category label fades in as its branch connects */
+  .category {
+    opacity: 0.35;
+    transform: translateX(-8px);
+    transition:
+      opacity 0.5s var(--ease-out) 0.1s,
+      transform 0.5s var(--ease-out) 0.1s;
+  }
+
+  .rowLit .category {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Pills cascade left-to-right; delay only the reveal pair so hover
+     color changes stay instant */
+  .pill {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition:
+      opacity 0.45s var(--ease-out),
+      transform 0.45s var(--ease-out),
+      color var(--transition),
+      border-color var(--transition),
+      background-color var(--transition);
+    transition-delay: calc(150ms + var(--i, 0) * 40ms),
+      calc(150ms + var(--i, 0) * 40ms), 0s, 0s, 0s;
+  }
+
+  .rowLit .pill {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---- Stack label above pills on narrow screens ---- */
+
+@media (max-width: 720px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
 }

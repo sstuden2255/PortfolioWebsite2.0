@@ -5,6 +5,107 @@
   margin-inline: auto;
 }
 
+/* ---- The Line: rail zone ----
+   Wraps every post-hero section. Content is inset by --rail-gutter;
+   the rail draws at x = 5..6px (matching the hero stub), leaving room
+   for node dots and connector branches in the gutter. */
+
+.railZone {
+  position: relative;
+  padding-left: var(--rail-gutter);
+}
+
+/* Faint full-height track the accent line draws over */
+.railTrack,
+.railLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 5px;
+  width: 1px;
+  pointer-events: none;
+}
+
+.railTrack {
+  background: var(--color-border);
+}
+
+/* The accent line itself: scaleY bound per-frame to scroll progress.
+   Transform-only — zero layout impact. */
+.railLine {
+  background: linear-gradient(
+    to bottom,
+    var(--color-accent-dim),
+    var(--color-accent)
+  );
+  box-shadow: 0 0 8px var(--color-accent-glow);
+  transform: scaleY(var(--line-progress, 0));
+  transform-origin: top;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Fully drawn, no exceptions (the hook also reports progress 1). */
+  .railLine {
+    transform: scaleY(1);
+  }
+}
+
+/* ---- Terminal cap: where the line ends ---- */
+
+.terminal {
+  position: relative;
+  margin-top: var(--space-8);
+  padding: var(--space-2) 0;
+}
+
+/* Node dot sitting on the rail (rail center x = 5.5px inside the zone) */
+.terminal::before {
+  content: '';
+  position: absolute;
+  left: calc(1px - var(--rail-gutter));
+  top: 50%;
+  translate: 0 -50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 12px var(--color-accent-glow), 0 0 0 3px var(--color-bg);
+}
+
+.terminalLabel {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .terminal::before {
+    background: var(--color-border-bright);
+    box-shadow: 0 0 0 3px var(--color-bg);
+    transition:
+      background-color 0.5s var(--ease-out),
+      box-shadow 0.5s var(--ease-out);
+  }
+
+  .terminalLabel {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 0.5s var(--ease-out),
+      transform 0.5s var(--ease-out);
+  }
+
+  .terminalLit::before {
+    background: var(--color-accent);
+    box-shadow: 0 0 12px var(--color-accent-glow), 0 0 0 3px var(--color-bg);
+  }
+
+  .terminalLit .terminalLabel {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Visually hidden until focused — standard skip-link pattern */
 .skipLink {
   position: fixed;

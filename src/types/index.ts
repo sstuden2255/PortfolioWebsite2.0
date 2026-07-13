@@ -8,16 +8,29 @@ export interface Job {
   company: string;
   role: string;
   dates: string;
-  location: string;
-  bullets: string[];
+  /** Optional — omitted when not known/relevant. */
+  location?: string;
+  /** Single prose paragraph summarizing the role. */
+  summary: string;
 }
 
 export interface Project {
   title: string;
-  description: string;
-  stack: string[];
-  liveUrl?: string;
-  githubUrl?: string;
+  /** Target platforms, e.g. "iOS & Android". */
+  platform: string;
+  /** One or more prose paragraphs. */
+  description: string[];
+  /** Tech-stack tags rendered as pills. */
+  tags: string[];
+  /** App screenshot; when omitted a placeholder frame renders instead. */
+  screenshot?: {
+    src: string;
+    alt: string;
+  };
+  /** Renders disabled "coming soon" store pills instead of link buttons. */
+  comingSoon?: boolean;
+  appStoreUrl?: string;
+  playStoreUrl?: string;
 }
 
 export interface SkillGroup {

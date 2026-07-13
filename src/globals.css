@@ -21,6 +21,7 @@
   --color-accent-dim: #3dbf8d;                 /* accent on large surfaces */
   --color-accent-glow: rgba(94, 242, 184, 0.14); /* box-shadow glows */
   --color-accent-tint: rgba(94, 242, 184, 0.08); /* pill/tag backgrounds */
+  --color-accent-border: rgba(94, 242, 184, 0.3); /* "powered-on" card borders */
 
   /* ---- Type ---- */
   --font-mono: 'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
@@ -44,8 +45,22 @@
   --container: 68rem;            /* max content width */
   --nav-height: 4rem;
   --transition: 180ms ease;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1); /* shared reveal easing */
+
+  /* ---- The Line ----
+     The rail draws at x = 5..6px inside the rail zone (see App.module.css);
+     content clears it by --rail-gutter. Elements sitting ON the rail
+     (dots, connectors) position themselves with calcs against this token,
+     so changing the gutter re-aligns every section at once. */
+  --rail-gutter: var(--space-6);
 
   color-scheme: dark;
+}
+
+@media (max-width: 560px) {
+  :root {
+    --rail-gutter: var(--space-5);
+  }
 }
 
 /* ============ Reset ============ */

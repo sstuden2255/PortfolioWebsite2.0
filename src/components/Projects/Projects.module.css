@@ -1,9 +1,16 @@
+/* Projects hang off The Line (the page rail drawn by the App shell):
+   each card gets a junction dot on the rail and a connector branch that
+   draws into the card as the line passes, powering the card on.
+   Rail geometry: the rail spans x = 5..6px inside the rail zone, so
+   rail-relative positions are calcs against --rail-gutter. */
+
 .section {
   padding-top: var(--space-9);
 }
 
 /* Same heading pattern as the other sections */
 .heading {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -19,6 +26,21 @@
   background: linear-gradient(to right, var(--color-border-bright), transparent);
 }
 
+/* Section node on the rail */
+.heading::before {
+  content: '';
+  position: absolute;
+  left: calc(-1px - var(--rail-gutter));
+  top: 50%;
+  translate: 0 -50%;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1px solid var(--color-accent-dim);
+  background: var(--color-accent-tint);
+  box-shadow: 0 0 12px var(--color-accent-glow), 0 0 0 3px var(--color-bg);
+}
+
 .headingIndex {
   font-family: var(--font-mono);
   font-size: 0.7em;
@@ -26,48 +48,77 @@
   color: var(--color-accent);
 }
 
-/* ---- Grid: auto-fit keeps it responsive with no breakpoint math ---- */
+/* ---- List: long-form write-ups stacked one per row ---- */
 
-.grid {
+.list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr));
-  gap: var(--space-5);
+  gap: var(--space-6);
 }
 
-/* ---- Card ---- */
+.item {
+  position: relative;
+}
+
+/* Junction dot on the rail */
+.item::before {
+  content: '';
+  position: absolute;
+  left: calc(2px - var(--rail-gutter));
+  top: calc(3rem - 3px);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px var(--color-accent-glow), 0 0 0 3px var(--color-bg);
+}
+
+/* Connector branch: rail → card edge */
+.item::after {
+  content: '';
+  position: absolute;
+  left: calc(6px - var(--rail-gutter));
+  top: 3rem;
+  width: calc(var(--rail-gutter) - 6px);
+  height: 1px;
+  background: linear-gradient(to right, var(--color-accent-dim), var(--color-accent));
+  transform-origin: left;
+}
+
+/* ---- Card ----
+   Two columns: phone screenshot on the left, prose on the right. */
 
 .card {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: var(--space-5);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-6);
+  align-items: center;
+  padding: var(--space-6);
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-accent-border);
   border-radius: var(--radius-lg);
+  box-shadow: 0 0 20px var(--color-accent-glow);
   transition:
     border-color var(--transition),
     background-color var(--transition),
-    box-shadow var(--transition),
-    transform var(--transition);
+    box-shadow var(--transition);
 }
 
 .card:hover {
   background: var(--color-surface-hover);
   border-color: var(--color-accent-dim);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), 0 0 20px var(--color-accent-glow);
-  transform: translateY(-4px);
 }
 
-.cardTop {
+/* ---- Text column ---- */
+
+.content {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
+  flex-direction: column;
+  min-width: 0; /* let prose shrink inside the grid track */
 }
 
 .title {
-  font-size: 1.2rem;
+  font-size: 1.35rem;
   transition: color var(--transition);
 }
 
@@ -75,30 +126,30 @@
   color: var(--color-accent);
 }
 
-.links {
-  display: flex;
-  gap: var(--space-2);
-}
-
-.iconLink {
-  color: var(--color-text-muted);
-  padding: var(--space-1);
-  transition: color var(--transition), transform var(--transition);
-}
-
-.iconLink:hover {
+.platform {
+  margin-top: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
   color: var(--color-accent);
-  transform: translateY(-2px);
+}
+
+.body {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 62ch;
+  margin-top: var(--space-4);
 }
 
 .description {
   font-size: 0.95rem;
-  flex-grow: 1; /* pushes the stack tags to the card bottom */
+  line-height: 1.65;
+  color: var(--color-text-muted);
 }
 
-/* ---- Stack tags ---- */
+/* ---- Tech-stack tags ---- */
 
-.stack {
+.tags {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
@@ -112,4 +163,200 @@
   background: var(--color-accent-tint);
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
+}
+
+/* ---- Store links ---- */
+
+.storeLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+/* Same recipe as the hero buttons: bordered pill, mint on hover */
+.storeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.55rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--color-text);
+  border: 1px solid var(--color-border-bright);
+  border-radius: var(--radius-md);
+  transition:
+    color var(--transition),
+    border-color var(--transition),
+    background-color var(--transition),
+    transform var(--transition);
+}
+
+.storeButton:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent-dim);
+  background: var(--color-accent-tint);
+  transform: translateY(-2px);
+}
+
+.comingSoon {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.55rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  border: 1px dashed var(--color-border-bright);
+  border-radius: var(--radius-md);
+}
+
+/* ---- Phone screenshot frame ---- */
+
+.phone {
+  flex-shrink: 0;
+}
+
+.phoneFrame {
+  width: 200px;
+  aspect-ratio: 9 / 19.5;
+  padding: 8px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-accent-dim);
+  border-radius: 28px;
+  box-shadow: 0 0 24px var(--color-accent-glow);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.phoneScreen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  display: block;
+}
+
+.phonePlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  height: 100%;
+  border: 1px dashed var(--color-border-bright);
+  border-radius: 20px;
+  background: var(--color-accent-tint);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-align: center;
+  padding: var(--space-4);
+}
+
+.phonePlaceholder svg {
+  color: var(--color-accent);
+  opacity: 0.7;
+}
+
+/* ---- Power on/off (reversible — scrubs with the line) ----
+   Base styles above are the powered-on look, so reduced-motion users
+   (and no-JS CSS) get everything lit. Unpowered states live ONLY here.
+   Opacity/transform/color only — power cycles never cause layout shift. */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Junction dot: dim until the line arrives */
+  .item::before {
+    background: var(--color-border-bright);
+    box-shadow: 0 0 0 3px var(--color-bg);
+    transition:
+      background-color 0.4s var(--ease-out),
+      box-shadow 0.4s var(--ease-out);
+  }
+
+  .itemLit::before {
+    background: var(--color-accent);
+    box-shadow: 0 0 8px var(--color-accent-glow), 0 0 0 3px var(--color-bg);
+  }
+
+  /* Connector draws out of the rail */
+  .item::after {
+    transform: scaleX(0);
+    transition: transform 0.45s var(--ease-out) 0.05s;
+  }
+
+  .itemLit::after {
+    transform: scaleX(1);
+  }
+
+  /* Card: dark and settled low until powered */
+  .card {
+    opacity: 0.4;
+    transform: translateY(24px);
+    border-color: var(--color-border);
+    box-shadow: none;
+    transition:
+      opacity 0.6s var(--ease-out),
+      transform 0.6s var(--ease-out),
+      border-color 0.6s var(--ease-out) 0.15s,
+      background-color var(--transition),
+      box-shadow 0.6s var(--ease-out) 0.15s;
+  }
+
+  .itemLit .card {
+    opacity: 1;
+    transform: none;
+    border-color: var(--color-accent-border);
+    box-shadow: 0 0 20px var(--color-accent-glow);
+  }
+
+  .itemLit .card:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-accent-dim);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), 0 0 20px var(--color-accent-glow);
+  }
+
+  /* Phone frame: unlit until powered */
+  .phoneFrame {
+    border-color: var(--color-border-bright);
+    box-shadow: none;
+    transition:
+      border-color 0.6s var(--ease-out) 0.2s,
+      box-shadow 0.6s var(--ease-out) 0.2s;
+  }
+
+  .itemLit .phoneFrame {
+    border-color: var(--color-accent-dim);
+    box-shadow: 0 0 24px var(--color-accent-glow);
+  }
+
+  /* Tags pop in 40ms apart once power reaches the card */
+  .tag {
+    opacity: 0;
+    transform: translateY(8px) scale(0.9);
+    transition:
+      opacity 0.45s var(--ease-out),
+      transform 0.45s var(--ease-out);
+    transition-delay: calc(200ms + var(--i, 0) * 40ms);
+  }
+
+  .itemLit .tag {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---- Stack the phone above the text on narrow screens ---- */
+
+@media (max-width: 720px) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+
+  .phone {
+    justify-self: center;
+  }
+
+  .phoneFrame {
+    width: 170px;
+  }
 }

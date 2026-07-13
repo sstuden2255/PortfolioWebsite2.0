@@ -69,6 +69,14 @@ export default function Hero() {
           Resume
         </a>
       </div>
+
+      {/* Line stub: draws in last, visually handing off to the
+          Experience timeline's accent line below */}
+      <div
+        className={styles.lineStub}
+        style={{ '--stagger': 6 } as React.CSSProperties}
+        aria-hidden="true"
+      />
     </section>
   );
 }

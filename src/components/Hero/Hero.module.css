@@ -43,13 +43,38 @@
   }
 }
 
+/* Vertical accent stub that draws in after the load stagger, anchored
+   to the hero's bottom edge so it meets the page rail (x = 5..6px in
+   the rail zone below) exactly where the rail's track begins. */
+.lineStub {
+  position: absolute;
+  bottom: 0;
+  left: 5px;
+  width: 1px;
+  height: min(18svh, 10rem);
+  background: linear-gradient(to bottom, transparent, var(--color-accent));
+  transform-origin: top;
+  animation: draw 700ms var(--ease-out) both;
+  animation-delay: calc(120ms + var(--stagger) * 110ms);
+}
+
+@keyframes draw {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .kicker,
   .name,
   .title,
   .tagline,
   .meta,
-  .actions {
+  .actions,
+  .lineStub {
     animation: none;
   }
 }

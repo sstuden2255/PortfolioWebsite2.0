@@ -1,9 +1,14 @@
+/* The vertical line itself is the page rail drawn by the App shell;
+   this module only places nodes on it (rail center x = 5.5px inside the
+   rail zone, i.e. calc(5.5px - var(--rail-gutter)) from section content). */
+
 .section {
   padding-top: var(--space-9);
 }
 
-/* Section heading pattern: mono index + rule, shared across sections */
+/* Section heading pattern: rail node + mono index + rule */
 .heading {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -19,6 +24,21 @@
   background: linear-gradient(to right, var(--color-border-bright), transparent);
 }
 
+/* Section node: a larger dot marking the section on the rail */
+.heading::before {
+  content: '';
+  position: absolute;
+  left: calc(-1px - var(--rail-gutter));
+  top: 50%;
+  translate: 0 -50%;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1px solid var(--color-accent-dim);
+  background: var(--color-accent-tint);
+  box-shadow: 0 0 12px var(--color-accent-glow), 0 0 0 3px var(--color-bg);
+}
+
 .headingIndex {
   font-family: var(--font-mono);
   font-size: 0.7em;
@@ -27,22 +47,6 @@
 }
 
 /* ---- Timeline ---- */
-
-.timeline {
-  position: relative;
-  padding-left: var(--space-6);
-}
-
-/* The vertical rule */
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 5px;
-  top: 6px;
-  bottom: 6px;
-  width: 1px;
-  background: var(--color-border-bright);
-}
 
 .entry {
   position: relative;
@@ -53,11 +57,11 @@
   padding-bottom: 0;
 }
 
-/* Node dot with a soft glow, aligned to the rule */
+/* Node dot with a soft glow, sitting on the rail */
 .entry::before {
   content: '';
   position: absolute;
-  left: calc(-1 * var(--space-6) + 1px);
+  left: calc(1px - var(--rail-gutter));
   top: 8px;
   width: 9px;
   height: 9px;
@@ -95,33 +99,73 @@
   color: var(--color-border-bright);
 }
 
-/* ---- Bullets: custom "▹" markers in the accent color ---- */
+/* ---- Role summary: flowing prose ---- */
 
-.bullets {
-  display: grid;
-  gap: var(--space-2);
+.summary {
   max-width: 44rem;
-}
-
-.bullet {
-  position: relative;
-  padding-left: var(--space-5);
   font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
 }
 
-.bullet::before {
-  content: '▹';
-  position: absolute;
-  left: 0;
-  color: var(--color-accent);
-}
+/* ---- Scroll activation (reversible — scrubs with the line) ----
+   Unlit initial states live ONLY behind no-preference: reduced-motion
+   users get everything fully lit and visible. */
 
-@media (max-width: 560px) {
-  .timeline {
-    padding-left: var(--space-5);
+@media (prefers-reduced-motion: no-preference) {
+  /* Section node starts hollow; fills when the line reaches it */
+  .heading::before {
+    border-color: var(--color-border-bright);
+    background: var(--color-bg);
+    box-shadow: 0 0 0 3px var(--color-bg);
+    transition:
+      border-color 0.5s var(--ease-out),
+      background-color 0.5s var(--ease-out),
+      box-shadow 0.5s var(--ease-out);
   }
 
+  .headingLit::before {
+    border-color: var(--color-accent-dim);
+    background: var(--color-accent-tint);
+    box-shadow: 0 0 12px var(--color-accent-glow), 0 0 0 3px var(--color-bg);
+  }
+
+  /* Entry dot starts dim; glows on when the line passes it */
   .entry::before {
-    left: calc(-1 * var(--space-5) + 1px);
+    background: var(--color-border-bright);
+    box-shadow: 0 0 0 3px var(--color-bg);
+    transition:
+      background-color 0.5s var(--ease-out),
+      box-shadow 0.5s var(--ease-out);
+  }
+
+  .entryLit::before {
+    background: var(--color-accent);
+    box-shadow: 0 0 10px var(--color-accent-glow), 0 0 0 3px var(--color-bg);
+  }
+
+  /* Header then summary fade up 16px, staggered 60ms apart */
+  .entryHeader,
+  .summary {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.6s var(--ease-out),
+      transform 0.6s var(--ease-out);
+  }
+
+  .summary {
+    transition-delay: 60ms;
+  }
+
+  .entryLit .entryHeader,
+  .entryLit .summary {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  .entryLit .summary {
+    transition-delay: 60ms;
   }
 }

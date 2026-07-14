@@ -92,7 +92,7 @@ export const projects: Project[] = [
     description: [
       "I serve as the primary Android engineer on Sporcle's official Android app, a native Kotlin/Jetpack Compose shell wrapping the Sporcle web experience. I have driven multiple sustained modernizations of the codebase: migrating the UI from Material 2 to Material 3, converting the build system from Groovy to the Kotlin DSL with a centralized version catalog, and continually upgrading the Android Gradle Plugin, Kotlin, and target SDK (through API 36) alongside dozens of dependency updates. I led several significant platform migrations end-to-end, replacing the deprecated Accompanist WebView with a raw Android WebKit WebView integration, moving authentication from the legacy Google Sign-In SDK to the modern Credential Manager API, and upgrading Google Play Billing to the latest version, each backed by written design specs and implementation plans. Beyond feature work, I focus heavily on app stability and performance: resolving memory leaks, lifecycle bugs, and purchase-flow race conditions; hardening network and notification handling; implementing full edge-to-edge display support; and standing up a Macrobenchmark module to profile app performance.",
     ],
-    tags: ['Kotlin', 'Jetpack Compose'],
+    tags: ['Kotlin', 'Jetpack Compose', 'JavaScript', 'PHP', 'SQL'],
     screenshot: {
       src: '/screenshots/sporcle_screenshot.webp',
       alt: 'Screenshot of the Sporcle Android app',

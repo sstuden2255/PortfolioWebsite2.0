@@ -74,6 +74,13 @@
 }
 
 html {
+  /* Decorative bleeds (e.g. the hero glow) may extend past the viewport;
+     clip them at the viewport edge instead of creating horizontal scroll.
+     Must live on html, not body: a body-only overflow value propagates to
+     the viewport and body itself reverts to visible, so nothing clips and
+     mobile browsers still zoom out to fit the overflow.
+     `clip` (not `hidden`) so the page doesn't become a scroll container. */
+  overflow-x: clip;
   scroll-behavior: smooth;
   /* Keep anchored sections clear of the fixed nav when scrolled to */
   scroll-padding-top: calc(var(--nav-height) + 1rem);

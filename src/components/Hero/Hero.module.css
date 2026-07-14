@@ -5,9 +5,6 @@
   flex-direction: column;
   justify-content: center;
   padding-top: var(--nav-height);
-  /* .glow is a fixed-size decorative circle that can outgrow narrow
-     viewports and push the whole page into horizontal overflow. */
-  overflow: hidden;
 }
 
 /* ---- Two-column layout: text + portrait ----
@@ -43,13 +40,15 @@
   min-width: 0;
 }
 
-/* Soft accent glow behind the headline — pure decoration */
+/* Soft accent glow behind the headline — pure decoration.
+   Sized against the viewport so it can never push past the right edge
+   on narrow screens and create page-level horizontal overflow. */
 .glow {
   position: absolute;
   top: 20%;
   left: -10%;
-  width: 34rem;
-  height: 34rem;
+  width: min(34rem, 85vw);
+  height: min(34rem, 85vw);
   border-radius: 50%;
   background: radial-gradient(circle, var(--color-accent-glow), transparent 65%);
   filter: blur(40px);

@@ -4,6 +4,16 @@ Chronological log of features and notable changes to the portfolio site. Newest 
 
 ---
 
+## 2026-07-14 — Fix hero horizontal overflow on narrow mobile viewports
+
+Below ~535px viewport width, the page gained real horizontal overflow and content rendered squeezed in from both edges instead of filling the screen.
+
+- **Root cause:** the decorative `.glow` circle in `Hero.module.css` has a fixed `34rem` width and a `left: -10%` offset relative to `.hero`. As `.hero` narrows with the viewport, the glow's right edge stays fixed and eventually pushes past the screen edge; nothing in the tree clipped it, so the whole document gained horizontal scroll — which mobile browsers resolve by shrinking the rendered content to fit the wider scrollable area.
+- **Fix:** glow size is now `min(34rem, 85vw)` so it can never outgrow the viewport — no overflow to clip, and no visible clip seams (a first attempt with `overflow: hidden` on `.hero` hard-cut the glow at the hero's box edges, which sit inside the viewport). `html` additionally gets `overflow-x: clip` as a safety net against future decorative bleeds; note it must be on `html`, not `body` — a body-only overflow value propagates to the viewport and body reverts to `visible`, so nothing clips.
+- **Verified:** headless Chrome + CDP measurements across 320–1440px viewport widths (`scrollWidth` vs `clientWidth`, `visualViewport` scale) confirmed overflow before the fix (532px scroll width at 500px viewport) and its absence after; screenshots at 375px/1440px confirmed the glow renders with a soft, uncut falloff.
+
+---
+
 ## 2026-07-13 — Interactive hero portrait: dual mode (particles + ASCII matrix rain)
 
 Canvas portrait in the hero's right column, rendered from `src/assets/portrait.jpeg`, with two competing modes behind a temporary A/B switcher ("dots" / "glyphs", persisted to `localStorage['portrait-mode']`). All under `src/components/Hero/Portrait/`; no new dependencies.

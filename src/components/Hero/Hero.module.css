@@ -5,6 +5,9 @@
   flex-direction: column;
   justify-content: center;
   padding-top: var(--nav-height);
+  /* .glow is a fixed-size decorative circle that can outgrow narrow
+     viewports and push the whole page into horizontal overflow. */
+  overflow: hidden;
 }
 
 /* ---- Two-column layout: text + portrait ----

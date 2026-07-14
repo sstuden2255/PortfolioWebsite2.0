@@ -33,8 +33,8 @@ const REPULSE_RADIUS = 20;
 /** Inverse-square repulsion scale. Raise for a bigger "shove". */
 const REPULSE_STRENGTH = 600;
 /** Tap (touch) impulse: blast radius (CSS px) and kick strength. */
-const TAP_RADIUS = 130;
-const TAP_STRENGTH = 14;
+const TAP_RADIUS = 20;
+const TAP_STRENGTH = 5;
 
 /** Load-in: wait for the hero headline, then settle center-out. */
 const INTRO_DELAY = 0; // ms after mount before the first particles move

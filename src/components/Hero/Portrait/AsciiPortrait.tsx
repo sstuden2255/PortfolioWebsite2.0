@@ -50,7 +50,7 @@ const CASCADE_RADIUS = 5;
 /** Minimum ms between drops in the same column (keeps trails readable). */
 const COLUMN_COOLDOWN = 320;
 /** Tap (touch): spawn drops in every column within this radius (CSS px). */
-const TAP_RADIUS = 120;
+const TAP_RADIUS = 20;
 
 /** Intro: wait for the hero headline, then rain the columns in. */
 const INTRO_DELAY = 0; // ms after the first frame before any column starts

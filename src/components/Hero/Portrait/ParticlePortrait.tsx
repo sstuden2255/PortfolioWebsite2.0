@@ -25,7 +25,7 @@ const BRIGHTNESS_THRESHOLD = 0.0001;
 const MAX_PARTICLES = 4000;
 
 /** Spring pull toward home per frame. Higher = snappier return. */
-const SPRING = 0.002;
+const SPRING = 0.009;
 /** Velocity kept per frame. Lower = heavier damping, less wobble. */
 const FRICTION = 0.85;
 /** Cursor influence radius, CSS px. */

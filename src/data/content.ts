@@ -2,9 +2,8 @@
  * content.ts — single source of truth for all site copy.
  * Components import from here and render; nothing is hardcoded in JSX.
  *
- * TODO(Simon): add real app screenshots to the projects (drop images in
- * public/screenshots/ and set `screenshot: { src, alt }` — the phone
- * frame shows a placeholder until then). Resume lives at public/resume.pdf.
+ * TODO(Simon): Shop Autonomy is still comingSoon and has no screenshot yet.
+ * Resume lives at public/resume.pdf.
  */
 
 import type { Job, NavLink, Project, SkillGroup, SocialLinks } from '../types';
@@ -94,6 +93,10 @@ export const projects: Project[] = [
       "I serve as the primary Android engineer on Sporcle's official Android app, a native Kotlin/Jetpack Compose shell wrapping the Sporcle web experience. I have driven multiple sustained modernizations of the codebase: migrating the UI from Material 2 to Material 3, converting the build system from Groovy to the Kotlin DSL with a centralized version catalog, and continually upgrading the Android Gradle Plugin, Kotlin, and target SDK (through API 36) alongside dozens of dependency updates. I led several significant platform migrations end-to-end, replacing the deprecated Accompanist WebView with a raw Android WebKit WebView integration, moving authentication from the legacy Google Sign-In SDK to the modern Credential Manager API, and upgrading Google Play Billing to the latest version, each backed by written design specs and implementation plans. Beyond feature work, I focus heavily on app stability and performance: resolving memory leaks, lifecycle bugs, and purchase-flow race conditions; hardening network and notification handling; implementing full edge-to-edge display support; and standing up a Macrobenchmark module to profile app performance.",
     ],
     tags: ['Kotlin', 'Jetpack Compose'],
+    screenshot: {
+      src: '/screenshots/sporcle_screenshot.webp',
+      alt: 'Screenshot of the Sporcle Android app',
+    },
     playStoreUrl: 'https://play.google.com/store/apps/details?id=com.sporcle.geneva',
   },
   {
@@ -103,6 +106,10 @@ export const projects: Project[] = [
       'As part of a small engineering team, I helped build and evolve Sporcle Party, a real-time multiplayer trivia app, working across the full front-end stack while contributing heavily to product and design decisions during rapid sprint cycles. My most significant work came during a push to better monetize the app following a large surge of new users in the Middle East: I designed and shipped a system for purchasable avatar hats as a new revenue stream, spanning the asset pipeline and in-app store. I also led a full app localization effort to make the product feel native to our growing international audience. Beyond monetization, I redesigned core surfaces of the app, including the home screen and bottom-tab navigation, the profile and settings pages, and the in-game lobby and gameplay screens. Throughout, I owned release management and continuously resolved cross-platform UI and stability bugs to keep the experience polished across both iOS and Android.',
     ],
     tags: ['React Native', 'JavaScript', 'PHP', 'SQL'],
+    screenshot: {
+      src: '/screenshots/sporcle_party_screenshot.webp',
+      alt: 'Screenshot of the Sporcle Party app',
+    },
     appStoreUrl: 'https://apps.apple.com/us/app/sporcle-party-social-trivia/id1484143447',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=com.sporcle.party',
   },

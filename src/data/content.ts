@@ -28,7 +28,7 @@ export const education =
 export const socials: SocialLinks = {
   github: 'https://github.com/sstuden2255',
   linkedin: 'https://www.linkedin.com/in/simon-studen',
-  resume: '/resume.pdf', // TODO: this is just a placeholder resume right now
+  resume: '/resume.pdf',
 };
 
 export const navLinks: NavLink[] = [
@@ -77,14 +77,18 @@ export const jobs: Job[] = [
 
 export const projects: Project[] = [
   {
-    title: 'Shop Autonomy',
+    title: 'Sporcle Party',
     platform: 'iOS & Android',
     description: [
-      'Shop Autonomy is a cross-platform budget tracker catered towards users with intellectual and developmental disabilities. As a solo developer, I’m building the app primarily through an agentic coding workflow. I treat Claude Code as a collaborator governed by a strict, self-authored rulebook. This rulebook encodes the tech stack as well as guardrails to keep the AI agents productive without letting them make unilateral product decisions. Rather than accepting first drafts, I work iteratively through design specs, written implementation plans, and dated development-journal entries for every session. This deliberate loop of experimenting, verifying against real user needs, documenting the reasoning, and correcting course keeps the codebase clean and consistent, and ensures I understand every decision and change.',
-      'For Shop Autonomy, accessibility is an engineering requirement, not an afterthought. Since the app serves users who may have limited reading ability, low vision, or motor difficulties, I use a design-token system that enforces WCAG and other unique accessibility standards at the code level, such as screen-reader support on every interactive element or blocking text/background color combinations that fall below accessible contrast ratios. For a population that depends on predictable, legible, high-contrast interfaces, these choices are the difference between an app that empowers autonomy and one that’s unusable.',
+      'As part of a small engineering team, I helped build and evolve Sporcle Party, a real-time multiplayer trivia app, working across the full front-end stack while contributing heavily to product and design decisions during rapid sprint cycles. My most significant work came during a push to better monetize the app following a large surge of new users in the Middle East: I designed and shipped a system for purchasable avatar hats as a new revenue stream, spanning the asset pipeline and in-app store. I also led a full app localization effort to make the product feel native to our growing international audience. Beyond monetization, I redesigned core surfaces of the app, including the home screen and bottom-tab navigation, the profile and settings pages, and the in-game lobby and gameplay screens. Throughout, I owned release management and continuously resolved cross-platform UI and stability bugs to keep the experience polished across both iOS and Android.',
     ],
-    tags: ['React Native', 'TypeScript'],
-    comingSoon: true,
+    tags: ['React Native', 'JavaScript', 'PHP', 'SQL'],
+    screenshot: {
+      src: '/screenshots/sporcle_party_screenshot.webp',
+      alt: 'Screenshot of the Sporcle Party app',
+    },
+    appStoreUrl: 'https://apps.apple.com/us/app/sporcle-party-social-trivia/id1484143447',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.sporcle.party',
   },
   {
     title: 'Sporcle App',
@@ -100,18 +104,14 @@ export const projects: Project[] = [
     playStoreUrl: 'https://play.google.com/store/apps/details?id=com.sporcle.geneva',
   },
   {
-    title: 'Sporcle Party',
+    title: 'Shop Autonomy',
     platform: 'iOS & Android',
     description: [
-      'As part of a small engineering team, I helped build and evolve Sporcle Party, a real-time multiplayer trivia app, working across the full front-end stack while contributing heavily to product and design decisions during rapid sprint cycles. My most significant work came during a push to better monetize the app following a large surge of new users in the Middle East: I designed and shipped a system for purchasable avatar hats as a new revenue stream, spanning the asset pipeline and in-app store. I also led a full app localization effort to make the product feel native to our growing international audience. Beyond monetization, I redesigned core surfaces of the app, including the home screen and bottom-tab navigation, the profile and settings pages, and the in-game lobby and gameplay screens. Throughout, I owned release management and continuously resolved cross-platform UI and stability bugs to keep the experience polished across both iOS and Android.',
+      'Shop Autonomy is a cross-platform budget tracker catered towards users with intellectual and developmental disabilities. As a solo developer, I’m building the app primarily through an agentic coding workflow. I treat Claude Code as a collaborator governed by a strict, self-authored rulebook. This rulebook encodes the tech stack as well as guardrails to keep the AI agents productive without letting them make unilateral product decisions. Rather than accepting first drafts, I work iteratively through design specs, written implementation plans, and dated development-journal entries for every session. This deliberate loop of experimenting, verifying against real user needs, documenting the reasoning, and correcting course keeps the codebase clean and consistent, and ensures I understand every decision and change.',
+      'For Shop Autonomy, accessibility is an engineering requirement, not an afterthought. Since the app serves users who may have limited reading ability, low vision, or motor difficulties, I use a design-token system that enforces WCAG and other unique accessibility standards at the code level, such as screen-reader support on every interactive element or blocking text/background color combinations that fall below accessible contrast ratios. For a population that depends on predictable, legible, high-contrast interfaces, these choices are the difference between an app that empowers autonomy and one that’s unusable.',
     ],
-    tags: ['React Native', 'JavaScript', 'PHP', 'SQL'],
-    screenshot: {
-      src: '/screenshots/sporcle_party_screenshot.webp',
-      alt: 'Screenshot of the Sporcle Party app',
-    },
-    appStoreUrl: 'https://apps.apple.com/us/app/sporcle-party-social-trivia/id1484143447',
-    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.sporcle.party',
+    tags: ['React Native', 'TypeScript'],
+    comingSoon: true,
   },
 ];
 
@@ -150,7 +150,7 @@ export const skillGroups: SkillGroup[] = [
       'iOS',
       'Android',
       'React / React Native / Expo',
-      'Design Systems',
+      'UI/UX Design Systems',
       'Accessibility-First Design',
       'End-to-End Mobile Delivery',
       'Mobile/Web Architecture',
